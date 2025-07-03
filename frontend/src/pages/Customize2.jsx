@@ -1,13 +1,44 @@
 import React, { useContext, useState } from "react";
 import { userDataContext } from "../context/UserContext";
+import axios from "axios";
+import {MdKeyboardBackspace} from "react-icons/md"
+import { useNavigate } from "react-router-dom";
 
 function Customize2() {
-  const { userData } = useContext(userDataContext);
+  const { userData,backendImage,selectedImage,serverUrl,setUserData} = useContext(userDataContext);
   const [assistantName, setAssistantName] = useState(
     userData?.AssistantName || ""
   );
+  const [loading,setLoading] = useState(false)
+  const navigate= useNavigate()
+
+    const handleUpdateAssistant= async ()=>{
+      setLoading(true)
+      try {
+        let formData = new FormData()
+        formData.append("assistantName",assistantName)
+        if(backendImage){
+          formData.append("assistantImage",backendImage)
+        }else{
+          formData.append("imageUrl",selectedImage)
+        }
+        const result = await axios.post(`${serverUrl}/api/user/update`,
+            formData,{withCredentials:true})
+            setLoading(false)
+        console.log(result.data)
+        setUserData(result.data)
+        navigate("/")
+      } catch (error) {
+        setLoading(false)
+        console.log(error)
+      }
+    }
+
   return (
-    <div className="w-full h-[100vh] bg-gradient-to-t from-[black] to-[#030353] flex justify-center items-center flex-col p-[20px] ">
+    <div className="w-full h-[100vh] bg-gradient-to-t from-[black] to-[#030353] flex justify-center items-center flex-col p-[20px] relative">
+      <MdKeyboardBackspace className="absolute top-[30px] left-[30px] text-white w-[25px] h-[25px] cursor-pointer"
+      onClick={()=>navigate("/customize")}
+      />
       <h1 className="text-white mb-[30px] text-[30px] text-center">
         {" "}
         Enter Your <span className="text-blue-200">Assistant Name</span>
@@ -23,9 +54,12 @@ function Customize2() {
       {assistantName && (
         <button
           className="min-w-[300px] h-[60px] bg-white rounded-3xl text-black font-semibold cursor-pointer text-[19px] mt-[26px]"
-          onClick={() => navigate("/customize2")}
-        >
-          Finally Create Your Assistant
+          disabled={loading}
+          onClick={() => {
+            // navigate("/customize2")
+            handleUpdateAssistant()
+          }}>
+          {!loading? "Finally Create Your Assistant":"Loading.."}
         </button>
       )}
     </div>
