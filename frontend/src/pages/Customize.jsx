@@ -10,7 +10,7 @@ import image7 from "../assets/image7.jpeg";
 import { RiImageAddFill } from "react-icons/ri";
 import { userDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import {MdKeyboardBackspace} from "react-icons/md"
+import { MdKeyboardBackspace } from "react-icons/md";
 
 function Customize() {
   const {
@@ -34,10 +34,12 @@ function Customize() {
   };
   return (
     <div className="w-full h-[100vh] bg-gradient-to-t from-[black] to-[#030353] flex justify-center items-center flex-col p-[20px] ">
-        <MdKeyboardBackspace className="absolute top-[30px] left-[30px] text-white w-[25px] h-[25px] cursor-pointer"
-              onClick={()=>navigate("/")}/>
+      <MdKeyboardBackspace
+        className="absolute top-[30px] left-[30px] text-white w-[25px] h-[25px] cursor-pointer"
+        onClick={() => navigate("/")}
+      />
       <h1 className="text-white mb-[30px] text-[30px] text-center">
-        Select your<span className="text-blue-200">Assistant Image</span>
+        Select Your <span className="text-blue-200">Assistant Image</span>
       </h1>
       <div className="w-full max-w-[900px] flex justify-center items-center flex-wrap gap-[15px]">
         <Card image={image1} />
@@ -54,6 +56,7 @@ function Customize() {
               : null
           }`}
           onClick={() => {
+            inputImage.current.click();
             setSelectedImage("input");
           }}
         >
