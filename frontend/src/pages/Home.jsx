@@ -4,14 +4,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import { useRef } from "react";
+import aiImg from "../assets/ai.gif"
+import userImg from "../assets/user.gif"
 
 function Home() {
   const { userData, serverUrl, setUserData, getGeminiResponse } =
     useContext(userDataContext);
   const navigate = useNavigate();
   const [listening,setListening] = useState(false);
+  const [userText,setUserText]= useState("")
+  const [aiText,setAiText]= useState("")
   const isSpeakingRef = useRef(false);
   const recognitionRef= useRef(null)
+  const isRecognizingRef= useRef(false)
   const synth= window.speechSynthesis
 
   const handleLogOut = async () => {
@@ -40,8 +45,16 @@ function Home() {
 
   const speak =(text)=>{
     const utterence= new SpeechSynthesisUtterance(text)
+    utterence.lang = 'hi-IN';
+    const voices = window.speechSynthesis.getVoices()
+    const hindiVoice=voices.find(v => v.lang ==='hi-IN');
+    if(hindiVoice){
+      utterence.voice = hindiVoice;
+    }
+
     isSpeakingRef.current = true
     utterence.onend=()=>{
+      setAiText("")
       isSpeakingRef.current = false
       startRecognition()
       // recognitionRef.current?.start()
@@ -88,7 +101,7 @@ function Home() {
 
     recognitionRef.current = recognition
 
-    const isRecognizingRef ={current:false}
+
 
     const safeRecognition=()=>{
       if(!isSpeakingRef.current && !isRecognizingRef.current){
@@ -138,12 +151,16 @@ function Home() {
       if (
         transcript.toLowerCase().includes(userData.assistantName.toLowerCase())
       ) {
+        setAiText("")
+        setUserText(transcript)
         recognition.stop()
         isRecognizingRef.current= false;
         setListening(false)
         const data = await getGeminiResponse(transcript);
         // console.log(data);
         handleCommand(data);
+        setAiText(data.response)
+        setUserText("")
       }
     };
 
@@ -187,6 +204,10 @@ function Home() {
         />
       </div>
       <h1 className="text-white text-[18px] ">I'm {userData?.assistantName}</h1>
+        {!aiText && <img src={userImg} alt="" className="w-[200px]"/> }
+         {aiText && <img src={aiImg} alt="" className="w-[200px]"/> }
+
+         <h1 className="text-white text-[18px] font-semibold text-wrap" >{userText?userText:aiText?aiText:null}</h1>
     </div>
   );
 }
