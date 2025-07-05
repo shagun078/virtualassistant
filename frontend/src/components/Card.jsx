@@ -20,9 +20,10 @@ function Card({ image }) {
           ? "border-4 border-white shadow-2xl shadow-blue-950"
           : null
       }`}
-      onClick={() => {setSelectedImage(image)
-        setBackendImage(null)
-        setFrontendImage(null)
+      onClick={() => {
+        setSelectedImage(image);
+        setBackendImage(null);
+        setFrontendImage(null);
       }}
     >
       <img src={image} className="h-full object-cover" />
