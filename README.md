@@ -66,7 +66,7 @@ Run the Application
 Open your web browser and visit http://localhost:8000 (or the port shown in your terminal)
 
 ---
-###  Usage & Testing Guide
+##  Usage & Testing Guide
 
 Follow these steps to use and test the Virtual Assistant:
 
@@ -90,3 +90,17 @@ The assistant will recognize your voice and respond accordingly.
 
 ---
 ## Screenshots
+
+#### Sign In / Sign Up  
+![Sign In / Sign Up](link)
+
+---
+
+#### Customize Your Assistant  
+![Customize Assistant](link)
+
+---
+
+#### Interact with Your Virtual Assistant  
+![Home / Assistant Interaction](link)
+
