@@ -3,7 +3,7 @@ export const userDataContext = createContext();
 import axios from "axios";
 
 function UserContext({ children }) {
-  const serverUrl = "https://virtualassistantb.vercel.app/";
+  const serverUrl = "https://virtualassistantb.vercel.app";
   // const serverUrl = "http://localhost:8000";
   const [userData, setUserData] = useState(null);
   const [frontendImage, setFrontendImage] = useState(null);
