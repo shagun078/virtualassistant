@@ -92,15 +92,15 @@ The assistant will recognize your voice and respond accordingly.
 ## Screenshots
 
 #### Sign In / Sign Up  
-![Sign In / Sign Up](frontend\src\assets\signin.png)
+![Sign In / Sign Up](https://github.com/shagun078/virtualassistant/blob/main/frontend/src/assets/signin.png)
 
 ---
 
 #### Customize Your Assistant  
-![Customize Assistant](frontend\src\assets\customize.png)
+![Customize Assistant](https://github.com/shagun078/virtualassistant/blob/main/frontend/src/assets/customize.png)
 
 ---
 
 #### Interact with Your Virtual Assistant  
-![Home / Assistant Interaction](frontend\src\assets\assistant.png)
+![Home / Assistant Interaction](https://github.com/shagun078/virtualassistant/blob/main/frontend/src/assets/assistant.png)
 
