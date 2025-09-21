@@ -92,15 +92,15 @@ The assistant will recognize your voice and respond accordingly.
 ## Screenshots
 
 #### Sign In / Sign Up  
-![Sign In / Sign Up](link)
+![Sign In / Sign Up](frontend\src\assets\signin.png)
 
 ---
 
 #### Customize Your Assistant  
-![Customize Assistant](link)
+![Customize Assistant](frontend\src\assets\customize.png)
 
 ---
 
 #### Interact with Your Virtual Assistant  
-![Home / Assistant Interaction](link)
+![Home / Assistant Interaction](frontend\src\assets\assistant.png)
 

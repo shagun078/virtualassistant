@@ -12,27 +12,44 @@ function Customize2() {
   const [loading,setLoading] = useState(false)
   const navigate= useNavigate()
 
-    const handleUpdateAssistant= async ()=>{
-      setLoading(true)
-      try {
+
+const handleUpdateAssistant = async () => {
+    setLoading(true)
+    try {
         let formData = new FormData()
-        formData.append("assistantName",assistantName)
-        if(backendImage){
-          formData.append("assistantImage",backendImage)
-        }else{
-          formData.append("imageUrl",selectedImage)
-        }
-        const result = await axios.post(`${serverUrl}/api/user/update`,
-            formData,{withCredentials:true})
+        formData.append("assistantName", assistantName)
+        
+        if (selectedImage === "input" && backendImage) {
+            // User uploaded a custom image
+            formData.append("assistantImage", backendImage)
+        } else if (selectedImage && selectedImage !== "input") {
+            // User selected a preset image
+            formData.append("imageUrl", selectedImage)
+        } else {
+            // No image selected
+            alert("Please select or upload an assistant image!")
             setLoading(false)
+            return
+        }
+        console.log("selectedImage:", selectedImage);
+        console.log("backendImage:", backendImage);
+        console.log("FormData contents:");
+        for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+        }
+
+        const result = await axios.post(`${serverUrl}/api/user/update`, 
+            formData, {withCredentials: true})
+        
+        setLoading(false)
         console.log(result.data)
         setUserData(result.data)
         navigate("/")
-      } catch (error) {
+    } catch (error) {
         setLoading(false)
         console.log(error)
-      }
     }
+}
 
   return (
     <div className="w-full h-[100vh] bg-gradient-to-t from-[black] to-[#030353] flex justify-center items-center flex-col p-[20px] relative">
@@ -45,7 +62,7 @@ function Customize2() {
       </h1>
       <input
         type="text"
-        placeholder="eg: Shagun"
+        placeholder="eg: Sifra"
         className="w-full max-w-[600px] h-[60px] outline-none border-2 border-white bg-transparent text-white placeholder-gray-300 px-[20px] rounded-full py-[10px] text-[18px]"
         required
         onChange={(e) => setAssistantName(e.target.value)}
